@@ -1,0 +1,3 @@
+postgresqlのDBに接続　
+\COPY ＜table name＞ FROM '{location + file_name}' DELIMITER ',';
+↑のコマンドを実行
