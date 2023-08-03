@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import PokemonList from '../../assets/mock/PokemonList.json';
-import {Pokemon} from '../class/pokemon';
-import {Status} from '../class/status';
-import { GetPokemonUtil } from '../util/get-pokemon-util';
+import { Component, Inject } from '@angular/core';
+import {Pokemon} from '../../class/pokemon';
+import { GetPokemonUtil } from '../../util/get-pokemon-util';
+import { GetAllPokemonService } from '../../service/get-all-pokemon.service';
+
 
 @Component({
   selector: 'app-pokemon-list',
@@ -10,8 +10,18 @@ import { GetPokemonUtil } from '../util/get-pokemon-util';
   styleUrls: ['./pokemon-list.component.scss']
 })
 export class PokemonListComponent {
-  getPokemonUtil = new GetPokemonUtil();
-  list = this.getPokemonUtil.getList();
-  columnName = this.getPokemonUtil.getTitle(this.list[0]);
+  @Inject(String) columnName: String[];
+  pokemonList: Pokemon[];
+constructor(
+    private service: GetAllPokemonService,
+    private getPokemonUtil: GetPokemonUtil,
 
+  ){}
+
+  ngOnInit(){
+    this.service.searchAll().subscribe(res => {
+      this.pokemonList = this.getPokemonUtil.getList(res);
+      this.columnName = this.getPokemonUtil.getTitle(this.pokemonList[0]);
+    })
+  }
 }

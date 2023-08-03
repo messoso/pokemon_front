@@ -1,12 +1,11 @@
 import { Pokemon } from "../class/pokemon";
 import { Status } from "../class/status";
-import PokemonList from '../../assets/mock/PokemonList.json';
 
 
 export class GetPokemonUtil {
-    public getList(): Pokemon[]{
+    public getList(pokemonList:Pokemon[]): Pokemon[]{
         let list: Pokemon[] = [];
-        for(let entity of PokemonList){
+        for(let entity of pokemonList){
           let status: Status = {
             h: entity.status.h
             , a: entity.status.a
